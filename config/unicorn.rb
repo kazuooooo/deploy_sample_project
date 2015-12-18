@@ -4,7 +4,7 @@ timeout 15
 preload_app true  # 更新時ダウンタイム無し
 
 listen "/home/vagrant/app_root/current/tmp/unicorn.sock"
-pid "/home/vagrant/app_root/current/tmp/unicorn.pid"
+pid "/tmp/unicorn.pid"
 
 before_fork do |server, worker|
   Signal.trap 'TERM' do
