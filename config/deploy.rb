@@ -35,7 +35,7 @@ set :linked_dirs, fetch(:linked_dirs, []).push('/home/vagrant/app_root/current')
 set :keep_releases, 5
 
 # rbenv
-set :rbenv_type, :system
+set :rbenv_type, :user
 set :rbenv_ruby, '2.2.4'
 set :rbenv_path, '/opt/rbenv'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
@@ -99,3 +99,4 @@ namespace :setup do
   end
 
 end
+
