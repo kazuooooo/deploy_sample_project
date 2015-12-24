@@ -41,10 +41,11 @@ set :rbenv_path, '/opt/rbenv'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 set :rbenv_roles, :all # default value
-
+# 後でやるという意味
 after 'deploy:publishing', 'deploy:restart'
-namespace :deploy do
 
+namespace :deploy do
+  # ブロック内の処理が実行された後に:resutartと:clear_cacheを呼ぶという意味
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
@@ -55,7 +56,13 @@ namespace :deploy do
   end
 
   task :restart do
+    # unicorn
     invoke 'unicorn:restart'
+    # application
+    on roles(:app), in: :sequence, wait: 5 do
+      execute :mkdir, '-p', release_path.join('tmp')
+      execute :touch, release_path.join('tmp/restart.txt')
+    end
   end
 
 end
