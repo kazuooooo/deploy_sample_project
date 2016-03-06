@@ -8,7 +8,7 @@ set :repo_url, 'https://github.com/kazuooooo/deploy_sample_project.git'
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, '/home/vagrant/app_root'
+set :deploy_to, '/home/ec2-user/app_root'
 
 # Default value for :scm is :git
 set :scm, :git
@@ -22,11 +22,15 @@ set :log_level, :debug
 # Default value for :pty is false
 set :pty, true
 
+set :ssh_options, {
+  keys: %w(~/.ssh/myprivatekey.pem),
+  forward_agent: true,
+}
 # Default value for :linked_files is []
 #set :linked_files, fetch(:linked_files, []).push('/home/vagrant/app_root/current/tmp/unicorn.pid')
 
 # Default value for linked_dirs is []
-set :linked_dirs, fetch(:linked_dirs, []).push('/home/vagrant/app_root/current')
+set :linked_dirs, fetch(:linked_dirs, []).push('/home/ec2-user/app_root/current')
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
